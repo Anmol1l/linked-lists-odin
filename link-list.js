@@ -44,14 +44,59 @@ const LinkedList = (() => {
         let size = 1;
         if (!headNode) return size;
         let currNode = headNode;
-        while(currNode.nextNode != null) {
+        while (currNode.nextNode != null) {
             size++;
             currNode = currNode.nextNode;
         }
         return size;
     };
 
-    return { append, head, tail, prepend, size };
+    const at = (index) => {
+        if (index > LinkedList.size() - 1) {
+            return undefined;
+        }
+
+        let currNode = headNode;
+        let i = 0;
+        while (i < index) {
+            currNode = currNode.nextNode;
+            i++;
+        }
+        return currNode.value;
+    };
+
+    const pop = () => {
+        let newHead = headNode.nextNode;
+        headNode = null;
+        headNode = newHead;
+        return headNode;
+    };
+
+    const contains = (value) => {
+        let currNode = headNode;
+        while (currNode != null) {
+            if(currNode.value === value) {
+                return true
+            }
+            currNode = currNode.nextNode;
+        }
+        return false;
+    };
+
+    const findIndex = (value) => {
+        let currNode = headNode;
+        let i = 0
+        while(currNode != null) {
+            if(currNode.value === value) {
+                return i;
+            }
+            currNode = currNode.nextNode;
+            i++;
+        }
+        return -1;
+    }
+
+    return { append, head, tail, prepend, size, at, pop, contains, findIndex };
 })();
 
 LinkedList.append(8);
