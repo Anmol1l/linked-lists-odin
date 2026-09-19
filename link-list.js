@@ -94,9 +94,23 @@ const LinkedList = (() => {
             i++;
         }
         return -1;
-    }
+    };
 
-    return { append, head, tail, prepend, size, at, pop, contains, findIndex };
+    const toString = () => {
+        let currNode = headNode;
+        let array = []
+        while(currNode != null) {
+            let value = `( ${currNode.value} )`;
+            array.push(value);
+            currNode = currNode.nextNode;
+        }
+
+        let string = array.join(' -> ')
+        return string;
+    } 
+
+    return { append, head, tail, prepend, size, at, pop, contains, findIndex, toString };
+    
 })();
 
 LinkedList.append(8);
