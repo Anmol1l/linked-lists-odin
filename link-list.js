@@ -8,7 +8,7 @@ class Node {
     }
 }
 
-const LinkedList = () => {
+export const LinkedList = () => {
     let headNode;
     let tailNode;
 
@@ -104,14 +104,14 @@ const LinkedList = () => {
             array.push(value);
             currNode = currNode.nextNode;
         }
+        array.push ("null");
 
         let string = array.join(" -> ");
         return string;
     };
 
     const insertAt = (index, ...values) => {
-
-        if(index <= 0 || index >= list.size()) {
+        if (index <= 0 || index >= list.size()) {
             throw new Error("Range Error");
         }
 
@@ -120,7 +120,7 @@ const LinkedList = () => {
             sublist.append(value);
         }
         let currNode = headNode;
-        for(let i = 1; i < index - 1; i++) {
+        for (let i = 1; i < index - 1; i++) {
             currNode = currNode.nextNode;
         }
         let oldNextNode = currNode.nextNode;
@@ -130,15 +130,18 @@ const LinkedList = () => {
     };
 
     const removeAt = (index) => {
+        if (index <= 0 || index >= list.size()) {
+            throw new Error("Range Error");
+        }
         let currNode = headNode;
-        for(let i = 1; i <= index - 1; i++) {
+        for (let i = 1; i <= index - 1; i++) {
             currNode = currNode.nextNode;
         }
         let nodeToRemove = currNode.nextNode;
-        console.log(nodeToRemove)
+        console.log(nodeToRemove);
         currNode.nextNode = currNode.nextNode.nextNode;
         nodeToRemove = null;
-    } 
+    };
 
     return {
         append,
@@ -155,8 +158,3 @@ const LinkedList = () => {
         removeAt,
     };
 };
-
-const list = LinkedList();
-list.append(8);
-list.append(2);
-list.append(3);
