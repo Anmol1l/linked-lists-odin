@@ -8,7 +8,7 @@ class Node {
     }
 }
 
-const LinkedList = (() => {
+const LinkedList = () => {
     let headNode;
     let tailNode;
 
@@ -52,7 +52,7 @@ const LinkedList = (() => {
     };
 
     const at = (index) => {
-        if (index > LinkedList.size() - 1) {
+        if (index > list.size() - 1) {
             return undefined;
         }
 
@@ -75,8 +75,8 @@ const LinkedList = (() => {
     const contains = (value) => {
         let currNode = headNode;
         while (currNode != null) {
-            if(currNode.value === value) {
-                return true
+            if (currNode.value === value) {
+                return true;
             }
             currNode = currNode.nextNode;
         }
@@ -85,9 +85,9 @@ const LinkedList = (() => {
 
     const findIndex = (value) => {
         let currNode = headNode;
-        let i = 0
-        while(currNode != null) {
-            if(currNode.value === value) {
+        let i = 0;
+        while (currNode != null) {
+            if (currNode.value === value) {
                 return i;
             }
             currNode = currNode.nextNode;
@@ -98,21 +98,65 @@ const LinkedList = (() => {
 
     const toString = () => {
         let currNode = headNode;
-        let array = []
-        while(currNode != null) {
+        let array = [];
+        while (currNode != null) {
             let value = `( ${currNode.value} )`;
             array.push(value);
             currNode = currNode.nextNode;
         }
 
-        let string = array.join(' -> ')
+        let string = array.join(" -> ");
         return string;
+    };
+
+    const insertAt = (index, ...values) => {
+
+        if(index <= 0 || index >= list.size()) {
+            throw new Error("Range Error");
+        }
+
+        const sublist = LinkedList();
+        for (const value of values) {
+            sublist.append(value);
+        }
+        let currNode = headNode;
+        for(let i = 1; i < index - 1; i++) {
+            currNode = currNode.nextNode;
+        }
+        let oldNextNode = currNode.nextNode;
+
+        currNode.nextNode = sublist.head();
+        sublist.tail().nextNode = oldNextNode;
+    };
+
+    const removeAt = (index) => {
+        let currNode = headNode;
+        for(let i = 1; i <= index - 1; i++) {
+            currNode = currNode.nextNode;
+        }
+        let nodeToRemove = currNode.nextNode;
+        console.log(nodeToRemove)
+        currNode.nextNode = currNode.nextNode.nextNode;
+        nodeToRemove = null;
     } 
 
-    return { append, head, tail, prepend, size, at, pop, contains, findIndex, toString };
-    
-})();
+    return {
+        append,
+        head,
+        tail,
+        prepend,
+        size,
+        at,
+        pop,
+        contains,
+        findIndex,
+        toString,
+        insertAt,
+        removeAt,
+    };
+};
 
-LinkedList.append(8);
-LinkedList.append(2);
-LinkedList.append(3);
+const list = LinkedList();
+list.append(8);
+list.append(2);
+list.append(3);
