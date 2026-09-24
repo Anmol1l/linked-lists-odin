@@ -8,7 +8,7 @@ class Node {
     }
 }
 
-export const LinkedList = () => {
+const LinkedList = () => {
     let headNode;
     let tailNode;
 
@@ -52,7 +52,7 @@ export const LinkedList = () => {
     };
 
     const at = (index) => {
-        if (index > list.size() - 1) {
+        if (index > size() - 1) {
             return undefined;
         }
 
@@ -111,7 +111,7 @@ export const LinkedList = () => {
     };
 
     const insertAt = (index, ...values) => {
-        if (index <= 0 || index >= list.size()) {
+        if (index <= 0 || index >= size()) {
             throw new Error("Range Error");
         }
 
@@ -130,7 +130,7 @@ export const LinkedList = () => {
     };
 
     const removeAt = (index) => {
-        if (index <= 0 || index >= list.size()) {
+        if (index <= 0 || index >= size()) {
             throw new Error("Range Error");
         }
         let currNode = headNode;
